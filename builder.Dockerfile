@@ -18,10 +18,13 @@ RUN addgroup --gid 1001 --system ovos && \
 
 USER ovos
 
-ADD . /opt
-
 WORKDIR /opt
 
+COPY .git .git
+
+COPY . .
+
+RUN ls -al
 RUN git submodule update --init --recursive
 
 ENTRYPOINT ["make"]
