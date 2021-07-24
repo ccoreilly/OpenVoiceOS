@@ -1,0 +1,5 @@
+name: 'Build'
+description: 'Builds ovos image'
+runs:
+  using: 'docker'
+  image: 'builder.Dockerfile'

@@ -17,3 +17,9 @@ RUN addgroup --gid 1001 --system ovos && \
     adduser --system --uid 1001 --gid 1001 ovos
 
 USER ovos
+
+ADD . /opt
+
+WORKDIR /opt
+
+ENTRYPOINT ["make", "clean", "rpi4_64-gui-config", "rpi4_64-gui"]
