@@ -24,4 +24,4 @@ WORKDIR /opt
 
 RUN git submodule update --init --recursive
 
-ENTRYPOINT ["make", "clean", "rpi4_64-gui-config", "rpi4_64-gui"]
+ENTRYPOINT ["make"]

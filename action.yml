@@ -3,3 +3,7 @@ description: 'Builds ovos image'
 runs:
   using: 'docker'
   image: 'builder.Dockerfile'
+  args:
+    - "clean"
+    - "rpi4_64-gui-config"
+    - "rpi4_64-gui"
