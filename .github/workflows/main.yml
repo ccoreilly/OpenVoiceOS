@@ -7,4 +7,4 @@ jobs:
     steps:
       - name: Build step
         id: build
-        uses: ccoreilly/OpenVoiceOS
+        uses: ccoreilly/OpenVoiceOS@cat1
