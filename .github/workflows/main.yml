@@ -5,6 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Builds OVOS
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
       - name: Build step
         id: build
-        uses: ccoreilly/OpenVoiceOS@cat3
+        uses: ccoreilly/OpenVoiceOS@cat4
