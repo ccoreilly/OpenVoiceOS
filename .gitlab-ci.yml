@@ -34,7 +34,7 @@ build:
     - make rpi4_64-gui-config
     - make rpi4_64-ca
   only:
-    - never
+    - catala
 
 
 continue:
@@ -64,7 +64,7 @@ continue:
     - sed -i 's/_qt5gui_find_extra_libs(OPENGL "GLESv2" "" "")/_qt5gui_find_extra_libs(OPENGL "${CMAKE_SYSROOT}\/usr\/lib\/libGLESv2.so" "" "${CMAKE_SYSROOT}\/usr\/include\/libdrm")/g' buildroot/output/host/aarch64-buildroot-linux-gnu/sysroot/usr/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
     - make rpi4_64-ca
   only:
-    - never
+    - catala
 
 upload:
   variables:
@@ -73,6 +73,6 @@ upload:
   image: curlimages/curl:latest
   stage: upload
   script:
-    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file release/OpenVoiceOS_rpi4_64-ca.img.xz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/ovos-ca/0.0.1/OpenVoiceOS_rpi4_64-ca.img.xz"'
+    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file release/OpenVoiceOS_rpi4_64-ca.img.xz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/ovos-ca/${CI_COMMIT_SHORT_SHA}/OpenVoiceOS_rpi4_64-ca.img.xz"'
   only:
     - catala
