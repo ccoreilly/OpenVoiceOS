@@ -1,7 +1,6 @@
 stages:
   - build
   - continue_build
-  - upload
 
 build:
   variables:
@@ -25,7 +24,6 @@ build:
     paths:
       - logs
       - release
-      - buildroot/output/host/aarch64-buildroot-linux-gnu/sysroot/usr/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
     expire_in: 1 week
   before_script:
     - bash ./scripts/br-patches.sh
@@ -36,6 +34,28 @@ build:
   only:
     - catala
 
+
+fix-perms:
+  variables:
+    GIT_SUBMODULE_STRATEGY: none
+    GIT_CLEAN_FLAGS: none
+  image: 
+    name: ubuntu:20.04
+    entrypoint: [""]
+  stage: build
+  allow_failure: true
+  cache:
+    key: ccache
+    untracked: true
+    policy: pull
+    paths:
+      - ccache
+      - downloads
+      - buildroot/output
+  script:
+    - chown -R 1001:1001 buildroot/output
+  only:
+    - never
 
 continue:
   variables:
@@ -63,16 +83,6 @@ continue:
   script:
     - sed -i 's/_qt5gui_find_extra_libs(OPENGL "GLESv2" "" "")/_qt5gui_find_extra_libs(OPENGL "${CMAKE_SYSROOT}\/usr\/lib\/libGLESv2.so" "" "${CMAKE_SYSROOT}\/usr\/include\/libdrm")/g' buildroot/output/host/aarch64-buildroot-linux-gnu/sysroot/usr/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
     - make rpi4_64-ca
-  only:
-    - catala
-
-upload:
-  variables:
-    GIT_SUBMODULE_STRATEGY: none
-    GIT_CLEAN_FLAGS: none
-  image: curlimages/curl:latest
-  stage: upload
-  script:
     - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file release/OpenVoiceOS_rpi4_64-ca.img.xz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/ovos-ca/${CI_COMMIT_SHORT_SHA}/OpenVoiceOS_rpi4_64-ca.img.xz"'
   only:
     - catala
