@@ -1,0 +1,6 @@
+config BR2_PACKAGE_PYTHON_OVOS_TTS_PLUGIN_SOFTCATALA
+	bool "python-ovos-tts-plugin-softcatala"
+	help
+	  Mycroft TTS plugin for Softcatala TTS
+
+	  https://github.com/OpenVoiceOS/ovos-tts-plugin-softcatala
