@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MYCROFT_SKILL_WIKIPEDIA_FOR_HUMANS_VERSION = 66fd1e49b45e6db263fba5248131dffa765900fc
+MYCROFT_SKILL_WIKIPEDIA_FOR_HUMANS_VERSION = cabe223d2aa725532912648fd11a89a327e081a8
 MYCROFT_SKILL_WIKIPEDIA_FOR_HUMANS_SITE = git://github.com/JarbasSkills/skill-wikipedia-for-humans
 MYCROFT_SKILL_WIKIPEDIA_FOR_HUMANS_SITE_METHOD = git
 MYCROFT_SKILL_WIKIPEDIA_FOR_HUMANS_DIRLOCATION = home/mycroft/.local/share/mycroft/skills
