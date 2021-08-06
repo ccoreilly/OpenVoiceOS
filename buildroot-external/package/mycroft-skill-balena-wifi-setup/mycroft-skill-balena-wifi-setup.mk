@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MYCROFT_SKILL_BALENA_WIFI_SETUP_VERSION = 54072ee75e3b86fc69784d6725a48a361789f035
+MYCROFT_SKILL_BALENA_WIFI_SETUP_VERSION = 5e5f0fac47c74b6336e46585e8292a8a84c383a2
 MYCROFT_SKILL_BALENA_WIFI_SETUP_SITE = git://github.com/Softcatala/skill-balena-wifi-setup
 MYCROFT_SKILL_BALENA_WIFI_SETUP_SITE_METHOD = git
 MYCROFT_SKILL_BALENA_WIFI_SETUP_DIRLOCATION = home/mycroft/.local/share/mycroft/skills
