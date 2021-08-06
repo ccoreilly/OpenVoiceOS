@@ -1,7 +1,7 @@
 {
   "stt": { "module": "ovos-stt-plugin-vosk"},
   "backend_port": 6712,
-  "geolocate": true,
+  "geolocate": false,
   "override_location": false,
   "api_version": "v1",
   "data_path": "~",
