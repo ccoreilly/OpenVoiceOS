@@ -1,88 +1,26 @@
 stages:
   - build
-  - continue_build
 
 build:
   variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-    GIT_CLEAN_FLAGS: -x -f -e ccache -e downloads
-  image: 
-    name: registry.softcatala.org/ciaran/openvoiceos:builder-0.0.5
-    entrypoint: [""]
-  stage: build
-  allow_failure: true
-  cache:
-    key: ccache
-    untracked: true
-    paths:
-      - ccache
-      - downloads
-      - buildroot/output
-  artifacts:
-    name: "$CI_JOB_NAME"
-    when: always
-    paths:
-      - logs
-      - release
-    expire_in: 1 week
-  before_script:
-    - bash ./scripts/br-patches.sh
-  script:
-    - make clean
-    - make rpi4_64-gui-config
-    - make rpi4_64-ca
-  only:
-    - catala
-
-
-fix-perms:
-  variables:
-    GIT_SUBMODULE_STRATEGY: none
-    GIT_CLEAN_FLAGS: none
-  image: 
-    name: ubuntu:20.04
-    entrypoint: [""]
-  stage: build
-  allow_failure: true
-  cache:
-    key: ccache
-    untracked: true
-    policy: pull
-    paths:
-      - ccache
-      - downloads
-      - buildroot/output
-  script:
-    - chown -R 1001:1001 buildroot/output
-  only:
-    - never
-
-continue:
-  variables:
     GIT_SUBMODULE_STRATEGY: none
     GIT_CLEAN_FLAGS: none
   image: 
     name: registry.softcatala.org/ciaran/openvoiceos:builder-0.0.5
     entrypoint: [""]
-  stage: continue_build
-  allow_failure: true
+  stage: build
   cache:
     key: ccache
-    untracked: true
     paths:
       - ccache
       - downloads
-      - buildroot/output
   artifacts:
     name: "$CI_JOB_NAME"
     when: always
     paths:
       - logs
-      - release/OpenVoiceOS_rpi4_64-ca.img.xz
     expire_in: 1 week
   script:
-    - sed -i 's/_qt5gui_find_extra_libs(OPENGL "GLESv2" "" "")/_qt5gui_find_extra_libs(OPENGL "${CMAKE_SYSROOT}\/usr\/lib\/libGLESv2.so" "" "${CMAKE_SYSROOT}\/usr\/include\/libdrm")/g' buildroot/output/host/aarch64-buildroot-linux-gnu/sysroot/usr/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
-    - make rpi4_64-ca
-    - 'curl --header "JOB-TOKEN: $CI_JOB_TOKEN" --upload-file release/OpenVoiceOS_rpi4_64-ca.img.xz "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/ovos-ca/${CI_COMMIT_SHORT_SHA}/OpenVoiceOS_rpi4_64-ca.img.xz"'
+    - bash ./gitlab-build.sh
   only:
     - catala
