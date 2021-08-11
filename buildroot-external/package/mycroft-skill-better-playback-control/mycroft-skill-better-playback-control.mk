@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MYCROFT_SKILL_BETTER_PLAYBACK_CONTROL_VERSION = ba5bf157efb78736d4194cc8474542322f1b5d2f
+MYCROFT_SKILL_BETTER_PLAYBACK_CONTROL_VERSION = e14743ee19117ad70b5dfa7bca774003a9f31ff5
 MYCROFT_SKILL_BETTER_PLAYBACK_CONTROL_SITE = git://github.com/OpenVoiceOS/skill-better-playback-control
 MYCROFT_SKILL_BETTER_PLAYBACK_CONTROL_SITE_METHOD = git
 MYCROFT_SKILL_BETTER_PLAYBACK_CONTROL_DIRLOCATION = home/mycroft/.local/share/mycroft/skills
