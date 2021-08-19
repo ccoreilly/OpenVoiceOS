@@ -27,7 +27,7 @@ else
     echo "Make clean"
     make clean
     echo "Make config"
-    make rpi4_64-gui-config
+    make rpi4_64-ca-config
     echo "Touching file ${CI_COMMIT_SHORT_SHA}"
     touch "${CI_COMMIT_SHORT_SHA}"
 fi
@@ -38,10 +38,10 @@ if [[ -f ./release/OpenVoiceOS_rpi4_64-ca.img.xz ]]; then
     exit 0
 fi
 
-if ! make rpi4_64-gui ; then
+if ! make rpi4_64-ca ; then
     echo "First make failed, trying to fix and rerun"
     sed -i 's/_qt5gui_find_extra_libs(OPENGL "GLESv2" "" "")/_qt5gui_find_extra_libs(OPENGL "${CMAKE_SYSROOT}\/usr\/lib\/libGLESv2.so" "" "${CMAKE_SYSROOT}\/usr\/include\/libdrm")/g' buildroot/output/host/aarch64-buildroot-linux-gnu/sysroot/usr/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake
-    make rpi4_64-gui
+    make rpi4_64-ca
 fi
 
 echo "Make finished, attempting upload"
